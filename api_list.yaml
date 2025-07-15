@@ -1,0 +1,8 @@
+- name: lpr
+  base_url: https://dev.mcc.apix.mayo.edu/v3/mcc/fhir/r4
+  version: 1.7.3
+  spec_path: specs/lpr.yaml
+- name: clinical_trials
+  base_url: https://dev.mcc.apix.mayo.edu/dps-clinstudies
+  version: 0.0.3
+  spec_path: specs/clinical_trials.yaml

@@ -1,0 +1,445 @@
+
+info:
+  title: Clinical Trials Search
+  description: Specifications for the installed clinical studies search API. 
+  version: 0.0.3
+servers:
+  - url: https://dev.mcc.apix.mayo.edu/dps-clinstudies
+  - url: https://test.mcc.apix.mayo.edu/dps-clinstudies
+  - url: https://staging.mcc.apix.mayo.edu/dps-clinstudies
+  - url: https://mcc.apix.mayo.edu/dps-clinstudies 
+openapi: 3.0.0
+paths:
+  /healthcheck:
+    get:
+      operationId: health_healthcheck_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+          description: Successful Response
+      summary: Health
+      tags:
+      - Service meta
+  /v1/all:
+    get:
+      description: Retrieve all studies.
+      operationId: allStudies_v1_all_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/StudyResponse'
+                title: Response Allstudies V1 All Get
+                type: array
+          description: Successful Response
+      summary: Allstudies
+      tags:
+      - v1 Search
+  /v1/first:
+    get:
+      description: Retrieve the first study. Used for service status healthcheck.
+      operationId: firstStudy_v1_first_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudyResponse'
+          description: Successful Response
+      summary: Firststudy
+      tags:
+      - v1 Search
+  /v1/irbId/{irbId}:
+    get:
+      description: Search for a study by the IRB ID.
+      operationId: studyByIrbId_v1_irbId__irbId__get
+      parameters:
+      - in: path
+        name: irbId
+        required: true
+        schema:
+          title: Irbid
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudyResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Studybyirbid
+      tags:
+      - v1 Search
+  /v1/nctNumber/{nct_number}:
+    get:
+      description: Search for a study by the NCT number.
+      operationId: studyByNctNumber_v1_nctNumber__nct_number__get
+      parameters:
+      - in: path
+        name: nct_number
+        required: true
+        schema:
+          title: Nct Number
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudyResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Studybynctnumber
+      tags:
+      - v1 Search
+  /v1/nctNumbers:
+    get:
+      description: Retrieve all NCT Numbers.
+      operationId: nctNumbers_v1_nctNumbers_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                title: Response Nctnumbers V1 Nctnumbers Get
+                type: array
+          description: Successful Response
+      summary: Nctnumbers
+      tags:
+      - v1 Search
+  /v1/pocId/{poc_id}:
+    get:
+      description: Search for a study by the POC id.
+      operationId: studyByPocId_v1_pocId__poc_id__get
+      parameters:
+      - in: path
+        name: poc_id
+        required: true
+        schema:
+          title: Poc Id
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudyResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Studybypocid
+      tags:
+      - v1 Search
+  /v1/sponsorProtocolId/{sponsorId}:
+    get:
+      description: Search for a study by the Sponsor Protocol ID.
+      operationId: studyBySponsorProtocolId_v1_sponsorProtocolId__sponsorId__get
+      parameters:
+      - in: path
+        name: sponsorId
+        required: true
+        schema:
+          title: Sponsorid
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudyResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Studybysponsorprotocolid
+      tags:
+      - v1 Search
+  /v1/studyId/{study_id}:
+    get:
+      description: Search for a study by the pk_study number.
+      operationId: studyById_v1_studyId__study_id__get
+      parameters:
+      - in: path
+        name: study_id
+        required: true
+        schema:
+          title: Study Id
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudyResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Studybyid
+      tags:
+      - v1 Search
+  /v1/studyNumber/{studyNumber}:
+    get:
+      description: Search for a study by the study number.
+      operationId: studyByStudyNumber_v1_studyNumber__studyNumber__get
+      parameters:
+      - in: path
+        name: studyNumber
+        required: true
+        schema:
+          title: Studynumber
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudyResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Studybystudynumber
+      tags:
+      - v1 Search
+  /version:
+    get:
+      operationId: version_version_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionInfoResponse'
+          description: Successful Response
+      summary: Version
+      tags:
+      - Service meta
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    HealthCheckResponse:
+      properties:
+        status:
+          title: Status
+          type: string
+      required:
+      - status
+      title: HealthCheckResponse
+      type: object
+    StudyResource:
+      properties:
+        Contact_Modified_Date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Contact Modified Date
+        Current_Study_Status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Current Study Status
+        Eligibility_Criteria:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Eligibility Criteria
+        Latest_Modified_Date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Latest Modified Date
+        Metadata_Added_Date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Metadata Added Date
+        Metadata_Last_Modified_Date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Metadata Last Modified Date
+        PI_Modified_Date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Pi Modified Date
+        POC_ID:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Poc Id
+        Publish_State:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publish State
+        Row_Loaded_Date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Row Loaded Date
+        Site_Summary_JSON:
+          anyOf:
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Site Summary Json
+        Sponsor_Protocol_ID:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sponsor Protocol Id
+        Status_Modified_Date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Status Modified Date
+        Study_Metadata_Json:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Study Metadata Json
+        ec_last_modified_date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Ec Last Modified Date
+        irb_protocol_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Irb Protocol Id
+        nct_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nct Number
+        pk_study:
+          title: Pk Study
+          type: integer
+        public_modified_data:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Public Modified Data
+        record_modified_date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Record Modified Date
+        sitecore_start_date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Sitecore Start Date
+        study_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Study Number
+        unpub_start_date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Unpub Start Date
+      required:
+      - pk_study
+      title: StudyResource
+      type: object
+    StudyResponse:
+      properties:
+        study:
+          anyOf:
+          - $ref: '#/components/schemas/StudyResource'
+          - items:
+              $ref: '#/components/schemas/StudyResource'
+            type: array
+          title: Study
+      required:
+      - study
+      title: StudyResponse
+      type: object
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    VersionInfoResponse:
+      properties:
+        app_version:
+          title: App Version
+          type: string
+        python_version:
+          title: Python Version
+          type: string
+      required:
+      - app_version
+      - python_version
+      title: VersionInfoResponse
+      type: object

@@ -1,0 +1,5 @@
+generate_models: true
+generate_client: true
+generate_tests: false
+use_enum_extension: true
+docstring_style: google
