@@ -1,0 +1,64 @@
+{
+  "study": {
+    "pk_study": 116445,
+    "Contact_Modified_Date": "2022-02-02T13:13:45",
+    "Current_Study_Status": "Approved",
+    "Eligibility_Criteria": "<p><strong>Inclusion Criteria:</strong></p>  <ul>  <li>Histologically proven intracranial glioblastoma or gliosarcoma at initial surgery  <ul>   <li>Patients will be eligible if the original histology was low-grade glioma and a subsequent diagnosis of glioblastoma or gliosarcoma is made (high-grade transformation)</li>  </ul>  </li>  <li>Karnofsky performance status &gt;= 70</li>  <li>Women must not be pregnant or breast-feeding</li>  <li>Progression of disease assessed by local site using Revised Assessment in Neuro-Oncology (RANO) criteria, with plan to give whole-dose bevacizumab therapeutically, either as single therapy or in conjunction with other chemotherapeutic regimens; patients getting bevacizumab to support additional radiation therapy or immunotherapy, or primarily for reduction of edema rather than for tumor treatment, are excluded; this must be the patient?s initial recurrence</li>  <li>Patient must not have been treated previously with immunotherapies (vaccines, checkpoint inhibitors, T-cells)</li>  <li>Intratumoral hemorrhage (acute, subacute, or chronic) as seen on hemosiderin-sensitive (gradient-echo) MRI may preclude patient inclusion because of anticipated limited evaluation due to magnetic susceptibility artifact on the heavily T2-weighted DSC-MRI images; if the region of enhancing tumor not affected by blooming artifact on the hemosiderin-sensitive images does not meet the 10 x 10 x 10 mm ?measurable enhancement? threshold specified elsewhere, the patient is ineligible</li>  <li>Progressive enhancement (&gt; 25% increase in contrast enhancing volume compared to nadir) on MRI within 14 days of registration, &gt;= 42 days since completion of radiation/temozolomide therapy, and &gt;= 28 days since surgical resection or cytotoxic chemotherapy; measurable enhancement is defined as two perpendicular in-plane diameters of at least 10 mm and at least 10 mm in the 3rd orthogonal direction</li>  <li>Patients must be able to tolerate brain MRI scans with dynamic intravenous gadolinium-based contrast agent injections  <ul>   <li>Ability to withstand 22 gauge intravenous (IV) placement</li>   <li>No history of untreatable claustrophobia</li>   <li>No magnetic resonance (MR) incompatible implants/devices or metallic foreign bodies</li>   <li>No contraindication to intravenous contrast administration   <ul>    <li>Adequate organ function, including adequate renal function defined as estimated glomerular filtration rate (eGFR) &gt;= 40 mL/min/1.73 m^2 as calculated per institution standard of care, and meeting local site requirements for intravenous administration of gadolinium-based MRI contrast agents</li>   </ul>   </li>   <li>No known allergy-like reaction to gadolinium or moderate or severe allergic reactions to one or more allergens as defined by the American College of Radiology (ACR); patient may be eligible if willing to undergo pre-treatment as defined by the institution&#39;s policy and/or ACR guidance</li>   <li>Weight compatible with limits imposed by the MRI scanner table</li>  </ul>  </li>  <li>Patient must be scheduled to receive treatment with a standard dose regimen of bevacizumab (bevacizumab infusion on days 1 and 15 of a 28-day treatment cycle); patient can be treated with bevacizumab alone or in combination with other chemotherapies</li> </ul>",
+    "Latest_Modified_Date": "2022-02-02T13:13:45",
+    "Metadata_Added_Date": "2020-01-29T19:38:35",
+    "Metadata_Last_Modified_Date": null,
+    "PI_Modified_Date": "2020-01-30T22:19:08",
+    "POC_ID": "",
+    "Publish_State": "Publish",
+    "Row_Loaded_Date": "2025-04-09T18:23:19.358670",
+    "Site_Summary_JSON": [
+      {
+        "Site_Abbreviation": "RST",
+        "Site_Contact_Display_Name": "Keith Severson",
+        "Site_Contact_Email": "Severson.Keith@mayo.edu",
+        "Site_Contact_Phone_Number": "(507) 284-4073",
+        "Site_Full_Name": "Rochester",
+        "Site_PI": "Timothy Kaufmann",
+        "Site_PI_LANID": "TJK09",
+        "Site_PI_PERID": "12788023",
+        "Status_Mapped": "Open for Enrollment",
+        "Status_Raw": "Accruing"
+      },
+      {
+        "Site_Abbreviation": "FLA",
+        "Site_Contact_Display_Name": "Cancer Center Clinical Trials Referral Office",
+        "Site_Contact_Email": null,
+        "Site_Contact_Phone_Number": "(855) 776-0015",
+        "Site_Full_Name": "Florida",
+        "Site_PI": "Amit Desai",
+        "Site_PI_LANID": null,
+        "Site_PI_PERID": "21119520",
+        "Status_Mapped": "Open for Enrollment",
+        "Status_Raw": "Accruing"
+      },
+      {
+        "Site_Abbreviation": "ARZ",
+        "Site_Contact_Display_Name": "Cancer Center Clinical Trials Referral Office",
+        "Site_Contact_Email": null,
+        "Site_Contact_Phone_Number": "(855) 776-0015",
+        "Site_Full_Name": "Arizona",
+        "Site_PI": "Leland Hu",
+        "Site_PI_LANID": "M060167",
+        "Site_PI_PERID": "13803611",
+        "Status_Mapped": "Open for Enrollment",
+        "Status_Raw": "Accruing"
+      }
+    ],
+    "Sponsor_Protocol_ID": "EAF151",
+    "Status_Modified_Date": null,
+    "Study_Metadata_Json": null,
+    "ec_last_modified_date": null,
+    "irb_protocol_id": "17-006593",
+    "nct_number": "NCT03115333",
+    "public_modified_data": null,
+    "record_modified_date": null,
+    "sitecore_start_date": "2022-02-02T00:00:00",
+    "study_number": "0000-100191-P01",
+    "unpub_start_date": null
+  }
+}

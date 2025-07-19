@@ -18,17 +18,16 @@ wrapper = APIWrapper(
 
 wrapper.authenticate()
 
-client = wrapper.get_client("clinical_trials")
+client = wrapper.get_client("llm_azure_openai")
 
 if __name__ == "__main__":
 
-    # from clients.clinical_trials.api.v_1_search import first_study_v_1_first_get
-    # response = first_study_v_1_first_get.sync_detailed(client=client)
+    from clients.llm_azure_openai.api.default import chat_completions_create
 
-    from clients.clinical_trials.api.v_1_search import study_by_nct_number_v_1_nct_number_nct_number_get    
-    response = study_by_nct_number_v_1_nct_number_nct_number_get.sync_detailed(
-        nct_number='NCT05514054', 
-        client=client
+    response = chat_completions_create.sync_detailed(
+        client=client,
+        deployment_id="gpt-4",
+        api_version='2024'
     )
 
     if response.status_code == 200:

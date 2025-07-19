@@ -6,6 +6,7 @@ import yaml
 import json
 import re
 import shutil
+from generate_api_list import generate_api_yaml
 
 
 def snake_case(s: str) -> str:
@@ -81,7 +82,11 @@ def generate_clients(api_list_path="api_list.yaml", output_dir="clients"):
         generated_dirs = [d for d in output_path.iterdir() if d.is_dir() and d.name != '.ruff_cache']
         print(generated_dirs)
         if len(generated_dirs) != 1:
-            raise RuntimeError(f"Expected 1 generated subfolder in {output_path}, found: {generated_dirs}")
+            # raise RuntimeError(f"Expected 1 generated subfolder in {output_path}, found: {generated_dirs}")
+            print(f"Generating {api}...")
+            print(f"Expected 1 generated subfolder in {output_path}, found: {generated_dirs}")
+            print("Now proceed to next API")
+            continue
 
         generated_dir = generated_dirs[0]  # e.g., clients/clinical_trials/ai-factory-product-build-azure-openai
 
@@ -94,4 +99,5 @@ def generate_clients(api_list_path="api_list.yaml", output_dir="clients"):
 
 
 if __name__ == "__main__":
+    generate_api_yaml("specs")
     generate_clients()
