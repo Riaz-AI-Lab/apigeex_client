@@ -2,11 +2,19 @@ import yaml
 import importlib
 from pathlib import Path
 from typing import Dict, Any
-import httpx
 
 
 class APIWrapper:
-    def __init__(self, auth_url: str, client_id: str, client_secret: str, api_list_path: str, clients_package: str = "clients"):
+    def __init__(
+            self, 
+            auth_url: str, 
+            client_id: str, 
+            client_secret: str, 
+            api_list_path: str, 
+            clients_package: str = "clients", 
+            production: bool = True
+        ):
+        self.production = production
         self.auth_url = auth_url
         self.client_id = client_id
         self.client_secret = client_secret
@@ -25,9 +33,9 @@ class APIWrapper:
         resp = requests.post(self.auth_url, headers=headers, data=data)
         resp.raise_for_status()
         self.token = resp.json().get("access_token")
-
         # After token obtained, initialize clients
         self._init_clients()
+        return self
 
     def _init_clients(self):
         with open(self.api_list_path, "r") as f:
@@ -37,9 +45,14 @@ class APIWrapper:
             name = api["name"]
             base_url = api["base_url"]
 
+            if self.production:
+                base_url = base_url.replace("dev.", "") \
+                    .replace("staging.", "") \
+                    .replace("test.", "")
+
             # Dynamically import the generated client package
             # e.g., clients.ai_factory_product_build_azure_openai
-            module_path = f"{self.clients_package}.{name}"
+            module_path = f"apigeex_client.{self.clients_package}.{name}"
 
             try:
                 client_module = importlib.import_module(module_path)
@@ -58,24 +71,7 @@ class APIWrapper:
                 headers=headers
             )
 
-            # # Patch the client's internal _request_options to include bearer token header
-            # # This is a private detail of openapi-python-client but works in practice
-            # def add_auth_headers(request_options):
-            #     headers = request_options.get("headers", {})
-            #     headers["Authorization"] = f"Bearer {self.token}"
-            #     request_options["headers"] = headers
-            #     return request_options
-
-            # # Wrap or patch client's _request_options method to inject headers
-            # original_request_options = client._request_options
-
-            # def patched_request_options(*args, **kwargs):
-            #     ro = original_request_options(*args, **kwargs)
-            #     return add_auth_headers(ro)
-
-            # client._request_options = patched_request_options
-
-            self.clients[name] = client
+            self.clients[name] = client            
             
 
     def get_client(self, name: str):

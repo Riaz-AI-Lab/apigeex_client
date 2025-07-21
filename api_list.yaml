@@ -7,6 +7,6 @@
   version: 0.0.3
   spec_path: specs/clinical_trials.yaml
 - name: llm_azure_openai
-  base_url: https://dev.mcc.apix.mayo.edu/llm-azure-openai
+  base_url: https://dev.mcc.apix.mayo.edu/llm-azure-openai/openai
   version: 0.0.1
   spec_path: specs/llm_azure_openai.yaml

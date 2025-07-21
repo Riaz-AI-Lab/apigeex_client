@@ -4,10 +4,10 @@ info:
   description: Azure OpenAI APIs for completions and search
   version: 0.0.1
 servers:
-  - url: https://dev.mcc.apix.mayo.edu/llm-azure-openai
-  - url: https://test.mcc.apix.mayo.edu/llm-azure-openai
-  - url: https://staging.mcc.apix.mayo.edu/llm-azure-openai
-  - url: https://mcc.apix.mayo.edu/llm-azure-openai
+  - url: https://dev.mcc.apix.mayo.edu/llm-azure-openai/openai
+  - url: https://test.mcc.apix.mayo.edu/llm-azure-openai/openai
+  - url: https://staging.mcc.apix.mayo.edu/llm-azure-openai/openai
+  - url: https://mcc.apix.mayo.edu/llm-azure-openai/openai
 security:
 - bearer:
   - api.read

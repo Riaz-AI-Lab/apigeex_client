@@ -1,0 +1,7 @@
+attrs==25.3.0
+httpx==0.28.1
+openapi_python_client==0.25.2
+python-dotenv==1.1.1
+python_dateutil==2.9.0.post0
+PyYAML==6.0.2
+Requests==2.32.4

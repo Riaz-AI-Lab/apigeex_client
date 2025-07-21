@@ -3,15 +3,15 @@ import json
 from dotenv import load_dotenv
 load_dotenv()
 
-from wrapper import APIWrapper
+from apigeex_client.wrapper import APIWrapper
 
-key = os.getenv('APIGEE_X_KEY')
-secret = os.getenv('APIGEE_X_SECRET')
+key = os.getenv('APIGEEx_KEY')
+secret = os.getenv('APIGEEx_SECRET')
 
 wrapper = APIWrapper(
     auth_url="https://dev.mcc.apix.mayo.edu/oauth/token",
-    client_id=os.getenv('APIGEE_X_KEY'),
-    client_secret=os.getenv('APIGEE_X_SECRET'),
+    client_id=os.getenv('APIGEEx_KEY'),
+    client_secret=os.getenv('APIGEEx_SECRET'),
     api_list_path="api_list.yaml",
     clients_package="clients"
 )
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     # from clients.clinical_trials.api.v_1_search import first_study_v_1_first_get
     # response = first_study_v_1_first_get.sync_detailed(client=client)
 
-    from clients.clinical_trials.api.v_1_search import study_by_nct_number_v_1_nct_number_nct_number_get    
+    from apigeex_client.clients.clinical_trials.api.v_1_search import study_by_nct_number_v_1_nct_number_nct_number_get    
     response = study_by_nct_number_v_1_nct_number_nct_number_get.sync_detailed(
         nct_number='NCT05514054', 
         client=client

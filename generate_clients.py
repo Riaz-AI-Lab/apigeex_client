@@ -1,5 +1,3 @@
-# generate_clients.py
-
 import subprocess
 from pathlib import Path
 import yaml
@@ -51,7 +49,7 @@ def write_config(package_name: str, output_dir: Path):
     return config_path
 
 
-def generate_clients(api_list_path="api_list.yaml", output_dir="clients"):
+def generate_clients(api_list_path="api_list.yaml", output_dir="apigeex_client/clients"):
     with open(api_list_path, "r") as f:
         api_list = yaml.safe_load(f)
 
@@ -61,6 +59,8 @@ def generate_clients(api_list_path="api_list.yaml", output_dir="clients"):
         version = api.get("version", "0.0.0")
 
         output_path = Path(output_dir) / name
+
+        print(output_path)
         output_path.mkdir(parents=True, exist_ok=True)
 
         config_path = write_config(name, output_path)

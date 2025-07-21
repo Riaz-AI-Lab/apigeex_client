@@ -4,14 +4,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-key = os.getenv('APIGEE_X_KEY')
-secret = os.getenv('APIGEE_X_SECRET')
+key = os.getenv('APIGEEx_KEY')
+secret = os.getenv('APIGEEx_SECRET')
 
-from wrapper import APIWrapper
+from apigeex_client.wrapper import APIWrapper
 wrapper = APIWrapper(
     auth_url="https://dev.mcc.apix.mayo.edu/oauth/token",
-    client_id=os.getenv('APIGEE_X_KEY'),
-    client_secret=os.getenv('APIGEE_X_SECRET'),
+    client_id=os.getenv('APIGEEx_KEY'),
+    client_secret=os.getenv('APIGEEx_SECRET'),
     api_list_path="api_list.yaml",
     clients_package="clients"
 )
@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     print(client._headers)
 
-    from clients.lpr.api.patient import patient_read, patient_search 
+    from apigeex_client.clients.lpr.api.patient import patient_read, patient_search 
 
     # response = patient_read.sync_detailed(id="82400e81-04d6-4a42-93a6-0530b356f182", client=client)
     response = patient_search.sync_detailed(        
