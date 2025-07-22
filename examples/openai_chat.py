@@ -1,44 +1,23 @@
-import os
 import json
-from dotenv import load_dotenv
-load_dotenv()
-from apigeex_client.wrapper import APIWrapper
 
 
 if __name__ == "__main__":
 
+    # import the API wrapper, this is standard to any API
+    from apigeex_client.wrapper import wrapper
+    
+    # import relevant functions from OpenAI API
     from apigeex_client.clients.llm_azure_openai.api.default import chat_completions_create
     from apigeex_client.clients.llm_azure_openai.models.create_chat_completion_request import CreateChatCompletionRequest
     from apigeex_client.clients.llm_azure_openai.models.chat_completion_request_message import ChatCompletionRequestMessage
     from apigeex_client.clients.llm_azure_openai.models.chat_completion_request_message_role import ChatCompletionRequestMessageRole
 
-    production = True
-    
-    # Create an API client for OpenAI Chat Completions
-    if production:
-        wrapper = APIWrapper(
-            auth_url="https://mcc.apix.mayo.edu/oauth/token",
-            client_id=os.getenv('PROD_APIGEE_X_KEY'),
-            client_secret=os.getenv('PROD_APIGEE_X_SECRET'),
-            api_list_path="api_list.yaml",
-            clients_package="clients",
-            production=production
-        ).authenticate()        
-    else:
-        wrapper = APIWrapper(
-            auth_url="https://dev.mcc.apix.mayo.edu/oauth/token",
-            client_id=os.getenv('NON_PROD_APIGEE_X_KEY'),
-            client_secret=os.getenv('NON_PROD_APIGEE_X_SECRET'),
-            api_list_path="api_list.yaml",
-            clients_package="clients",
-            production=production
-        ).authenticate()        
-
+    # Create a OpenAI API client from the wrapper
     client = wrapper.get_client("llm_azure_openai")
 
+    # Create system and user prompt objects
     context = "You are an AI assistant that helps doctors find medical information."
-    prompt = "What are the prescription guidelines for Methotrexate?"
-   
+    prompt = "What are the prescription guidelines for Methotrexate?"   
     system_prompt = ChatCompletionRequestMessage( role=ChatCompletionRequestMessageRole.SYSTEM, content=context )
     message = ChatCompletionRequestMessage( role=ChatCompletionRequestMessageRole.USER, content=prompt )    
     

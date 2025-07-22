@@ -18,6 +18,8 @@ This **apigeex_client** package allows you to use those APIs without explicitly 
 You need to provide CLIENT_ID and CLIENT_SECRET in an ```.env``` file as follow.
 
 ```
+PRODUCTION=true # Set to false if you're using Non-prod Apigee X
+
 NON_PROD_APIGEE_X_KEY=<NON_PROD_CLIENT_ID>
 NON_PROD_APIGEE_X_SECRET=<NON_PROD_CLIENT_SECRET>
 
@@ -34,58 +36,32 @@ PROD_APIGEE_X_SECRET=<PROD_CLIENT_SECRET>
 pip install git+ssh://git@github.com/riaz-ai-lab/apigeex_client.git
 ```
 
-- Copy the file `api_list.yaml` to your project
 
 ## Run an example
 
 Use the OpenAI chat/completions:
 
 ```
-import os
 import json
-from dotenv import load_dotenv
-load_dotenv()
-from apigeex_client.wrapper import APIWrapper
 
 
 if __name__ == "__main__":
 
-    # Declare the environment
-    production = True
+    # import the API wrapper, this is standard to any API
+    from apigeex_client.wrapper import wrapper
     
-    # Create an API client for OpenAI Chat Completions
-    if production:
-        # Production environment
-        wrapper = APIWrapper(
-            auth_url="https://mcc.apix.mayo.edu/oauth/token",
-            client_id=os.getenv('PROD_APIGEE_X_KEY'),
-            client_secret=os.getenv('PROD_APIGEE_X_SECRET'),
-            api_list_path="api_list.yaml",  # provide the path to api_list.yaml
-            clients_package="clients",
-            production=production
-        ).authenticate()        
-    else:
-        # Non-Production environment
-        wrapper = APIWrapper(
-            auth_url="https://dev.mcc.apix.mayo.edu/oauth/token",
-            client_id=os.getenv('NON_PROD_APIGEE_X_KEY'),
-            client_secret=os.getenv('NON_PROD_APIGEE_X_SECRET'),
-            api_list_path="api_list.yaml", # provide the path to api_list.yaml
-            clients_package="clients",
-            production=production
-        ).authenticate()        
-
-    client = wrapper.get_client("llm_azure_openai")
-    
-    # Import function from the Apigee X OpenAI APIs
+    # import relevant functions from OpenAI API
     from apigeex_client.clients.llm_azure_openai.api.default import chat_completions_create
     from apigeex_client.clients.llm_azure_openai.models.create_chat_completion_request import CreateChatCompletionRequest
     from apigeex_client.clients.llm_azure_openai.models.chat_completion_request_message import ChatCompletionRequestMessage
     from apigeex_client.clients.llm_azure_openai.models.chat_completion_request_message_role import ChatCompletionRequestMessageRole
 
+    # Create a OpenAI API client from the wrapper
+    client = wrapper.get_client("llm_azure_openai")
+
+    # Create system and user prompt objects
     context = "You are an AI assistant that helps doctors find medical information."
-    prompt = "What are the prescription guidelines for Methotrexate?"
-   
+    prompt = "What are the prescription guidelines for Methotrexate?"   
     system_prompt = ChatCompletionRequestMessage( role=ChatCompletionRequestMessageRole.SYSTEM, content=context )
     message = ChatCompletionRequestMessage( role=ChatCompletionRequestMessageRole.USER, content=prompt )    
     

@@ -19,7 +19,7 @@ def load_spec_metadata(spec_path: Path):
         "spec_path": str(spec_path),
     }
 
-def generate_api_yaml(spec_dir="specs", output_yaml="api_list.yaml"):
+def generate_api_yaml(spec_dir="specs", output_yaml="apigeex_client/data/api_list.yaml"):
     spec_dir = Path(spec_dir)
     entries = []
 

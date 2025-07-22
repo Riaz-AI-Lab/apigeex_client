@@ -1,10 +1,21 @@
+import os
 import yaml
 import importlib
 from pathlib import Path
 from typing import Dict, Any
 
+from dotenv import load_dotenv
+load_dotenv()
+
+from importlib.resources import files
+
+
 
 class APIWrapper:
+    """
+    A wrapper class that creates clients 
+    for all suppored APIs.
+    """
     def __init__(
             self, 
             auth_url: str, 
@@ -79,3 +90,27 @@ class APIWrapper:
         if not client:
             raise ValueError(f"Client '{name}' is not initialized or does not exist.")
         return client
+    
+
+production = os.getenv('PRODUCTION', True)
+
+api_list_path = files("apigeex_client.data").joinpath("api_list.yaml")
+
+if production:
+    wrapper = APIWrapper(
+        auth_url="https://mcc.apix.mayo.edu/oauth/token",
+        client_id=os.getenv('PROD_APIGEE_X_KEY'),
+        client_secret=os.getenv('PROD_APIGEE_X_SECRET'),
+        api_list_path=api_list_path,
+        clients_package="clients",
+        production=production
+    ).authenticate()        
+else:
+    wrapper = APIWrapper(
+        auth_url="https://dev.mcc.apix.mayo.edu/oauth/token",
+        client_id=os.getenv('NON_PROD_APIGEE_X_KEY'),
+        client_secret=os.getenv('NON_PROD_APIGEE_X_SECRET'),
+        api_list_path=api_list_path,
+        clients_package="clients",
+        production=production
+    ).authenticate()
