@@ -41,7 +41,7 @@ pip install git+ssh://git@github.com/riaz-ai-lab/apigeex_client.git
 
 Use the OpenAI chat/completions:
 
-```
+```python
 import json
 from dotenv import load_dotenv
 load_dotenv()
