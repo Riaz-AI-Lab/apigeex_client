@@ -7,7 +7,7 @@ from attrs import define, evolve, field
 
 @define
 class Client:
-    __spec_version__ = '1.7.3'
+    __spec_version__ = "1.7.3"
     """A class for keeping track of data related to the API
 
     The following are accepted as keyword arguments and will be used to construct httpx Clients internally:

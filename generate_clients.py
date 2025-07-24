@@ -49,7 +49,7 @@ def write_config(package_name: str, output_dir: Path):
     return config_path
 
 
-def generate_clients(api_list_path="api_list.yaml", output_dir="apigeex_client/clients"):
+def generate_clients(api_list_path="apigeex_client/data/api_list.yaml", output_dir="apigeex_client/clients"):
     with open(api_list_path, "r") as f:
         api_list = yaml.safe_load(f)
 
@@ -61,6 +61,10 @@ def generate_clients(api_list_path="api_list.yaml", output_dir="apigeex_client/c
         output_path = Path(output_dir) / name
 
         print(output_path)
+
+        if Path(output_path).exists():
+            continue
+        
         output_path.mkdir(parents=True, exist_ok=True)
 
         config_path = write_config(name, output_path)
@@ -82,11 +86,11 @@ def generate_clients(api_list_path="api_list.yaml", output_dir="apigeex_client/c
         generated_dirs = [d for d in output_path.iterdir() if d.is_dir() and d.name != '.ruff_cache']
         print(generated_dirs)
         if len(generated_dirs) != 1:
-            # raise RuntimeError(f"Expected 1 generated subfolder in {output_path}, found: {generated_dirs}")
-            print(f"Generating {api}...")
-            print(f"Expected 1 generated subfolder in {output_path}, found: {generated_dirs}")
-            print("Now proceed to next API")
-            continue
+            raise RuntimeError(f"Expected 1 generated subfolder in {output_path}, found: {generated_dirs}")
+            # print(f"Generating {api}...")
+            # print(f"Expected 1 generated subfolder in {output_path}, found: {generated_dirs}")
+            # print("Now proceed to next API")
+            # continue
 
         generated_dir = generated_dirs[0]  # e.g., clients/clinical_trials/ai-factory-product-build-azure-openai
 

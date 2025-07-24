@@ -10,3 +10,7 @@
   base_url: https://dev.mcc.apix.mayo.edu/llm-azure-openai/openai
   version: 0.0.1
   spec_path: specs/llm_azure_openai.yaml
+- name: hls_search
+  base_url: https://dev.mcc.apix.mayo.edu/genai-hls-search
+  version: 0.0.1
+  spec_path: specs/hls_search.yaml

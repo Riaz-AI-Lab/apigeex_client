@@ -37,9 +37,9 @@ pip install git+https://github.com/Riaz-AI-Lab/apigeex_client.git
 ```
 
 
-## Run an example
+## Examples
 
-Use the OpenAI chat/completions:
+### OpenAI chat/completions:
 
 ```python
 import json
@@ -94,6 +94,10 @@ if __name__ == "__main__":
 
     print(reply)
 ```
+
+### Healthcare Vertex AI Search
+
+
 
 ## Feedback
 

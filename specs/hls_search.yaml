@@ -1,0 +1,236 @@
+openapi: 3.0.0
+info:
+  title: genai-hls-search
+  description: A placeholder for a specification for the installed API.  Update the spec in the proxy repository in the resources/spec folder.
+  version: 0.0.1
+servers:
+  - url: https://dev.mcc.apix.mayo.edu/genai-hls-search
+    description: Internal/External Environment
+paths:
+  /:
+    post:
+      deprecated: true
+      summary: Search the patient data
+      description: This API is a wrapper to the Google [search](https://cloud.google.com/generative-ai-app-builder/docs/reference/rest/v1/projects.locations.dataStores.servingConfigs/search) API. Refer to this API for inputs/parameters.
+      responses:
+        '200':    # status code
+          description: Success means the API ran the command
+  /patientMessage:
+    post:
+      deprecated: true
+      summary: post a patient message to invoke patient data ingestion process
+      responses:
+        '200':    # status code
+          description: Success means the API ran the command
+  /edPatientMessage:
+    post:
+      deprecated: true
+      summary: post a patient message to invoke patient data ingestion process for emergency department.
+      responses:
+        '200':    # status code
+          description: Success means the API ran the command
+  /v1alpha/projects/lpr_healthcare/locations/us/collections/default_collection/dataStores/lpr_healthcare/servingConfigs/default_search:search:
+    post:
+      summary: Search Longitudinal Patient Record Content
+      description: This API is a wrapper to the Google [search](https://cloud.google.com/generative-ai-app-builder/docs/reference/rest/v1/projects.locations.dataStores.servingConfigs/search)
+        API. Refer to this API for inputs/parameters.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            examples:
+              genericRequest:
+                summary: Generic Request
+                value:
+                  query: Some example query
+                  pageSize: 10
+                  queryExpansionSpec:
+                    condition: AUTO
+                  spellCorrectionSpec:
+                    mode: AUTO
+                  contentSearchSpec:
+                    summarySpec:
+                      summaryResultCount: 5
+                      ignoreAdversarialQuery: true
+                      includeCitations: true
+                    snippetSpec:
+                      returnSnippet: true
+                    extractiveContentSpec:
+                      maxExtractiveAnswerCount: 1
+      responses:
+        '200':
+          description: 'Success means the API ran the command '
+        '401':
+           $ref: '#/components/responses/Unauthorized'
+  /v1alpha/projects/lpr_healthcare/locations/us/collections/default_collection/dataStores/lpr_healthcare/servingConfigs/default_search:answer:
+    post:
+      summary: Creates Answers for searching the Longitudinal Patient Record Content
+      description: 'Search with answer and follow-ups is based on the answer method. The answer method replaces the 
+      summarization features of the older search method and all of the features of the deprecated converse method.
+      This API is a wrapper to the Google [answer](https://cloud.google.com/generative-ai-app-builder/docs/reference/rest/v1alpha/projects.locations.collections.engines.servingConfigs/answer)
+        API. Refer to this API for inputs/parameters.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnswerRequest'
+            examples:
+              genericRequest:
+                summary: Generic Request
+                value:
+                  query: Some example query
+                  session: sessionId
+                  relatedQuestionsSpec:
+                    enable: true
+                  answerGenerationSpec:
+                    ignoreAdversarialQuery: true
+                  searchSpec:
+                    dataStoreSpecs:
+                      dataStore: datastore full name
+                  asynchronousMode: true
+      responses:
+        '200':
+          description: Success means the API ran the command
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1alpha/projects/lpr_healthcare/locations/us/collections/default_collection/dataStores/lpr_healthcare/sessions:
+    post:
+      summary: Creates a session for answer with followup
+      description: This API is a wrapper to the Google [sessions](https://cloud.google.com/generative-ai-app-builder/docs/reference/rest/v1alpha/projects.locations.dataStores.sessions)
+        API. Refer to this API for inputs/parameters.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionsRequest'
+      responses:
+        '200':
+          description: Success means the API ran the command
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1alpha/projects/lpr_healthcare/locations/us/collections/default_collection/dataStores/lpr_healthcare:completeQuery:
+    get:
+      summary: Completes the specified user input with keyword suggestions.
+      description: This API is a wrapper to the Google [completeQuery](https://cloud.google.com/generative-ai-app-builder/docs/reference/rest/v1/projects.locations.dataStores/completeQuery)
+        API. Refer to this API for inputs/parameters.
+      parameters:
+        - in: query
+          required: true
+          name: query
+          schema:
+            type: string
+          description: Required. The type ahead input used to fetch suggestions. Maximum
+            length is 128 characters.
+        - in: query
+          name: queryModel
+          schema:
+            type: string
+          description: 'Specifies the autocomplete data model. This overrides any model
+          specified in the Configuration > Autocomplete section of the Cloud console.
+          Currently supported values:
+
+
+          document - Using suggestions generated from user-imported documents. search-history
+          - Using suggestions generated from the past history of SearchService.Search
+          API calls. Do not use it when there is no traffic for Search API. user-event
+          - Using suggestions generated from user-imported search events. document-completable
+          - Using suggestions taken directly from user-imported document fields marked
+          as completable.
+
+
+          Default values:
+
+
+          document is the default model for regular dataStores. search-history is
+          the default model.
+
+          '
+        - in: query
+          name: userPseudoId
+          schema:
+            type: string
+          description: 'A unique identifier for tracking visitors. For example, this
+          could be implemented with an HTTP cookie, which should be able to uniquely
+          identify a visitor on a single device. This unique identifier should not
+          change if the visitor logs in or out of the website.
+
+
+          This field should NOT have a fixed value such as unknown_visitor.
+
+
+          This should be the same identifier as UserEvent.user_pseudo_id and SearchRequest.user_pseudo_id.
+
+
+          The field must be a UTF-8 encoded string with a length limit of 128 characters.
+          Otherwise, an INVALID_ARGUMENT error is returned.
+
+          '
+        - in: query
+          name: includeTailSuggestions
+          schema:
+            type: boolean
+          description: 'Indicates if tail suggestions should be returned if there are
+          no suggestions that match the full query. Even if set to true, if there
+          are suggestions that match the full query, those are returned and no tail
+          suggestions are returned.
+
+          '
+      responses:
+        '200':
+          description: Success means the API ran the command
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    SearchRequest:
+      type: object
+      nullable: true
+      description: Refer to the [search](https://cloud.google.com/generative-ai-app-builder/docs/reference/rest/v1/projects.locations.dataStores.servingConfigs/search)
+        api reference for supported attributes
+      example:
+        query: Some example query
+        pageSize: 10
+        queryExpansionSpec:
+          condition: AUTO
+        spellCorrectionSpec:
+          mode: AUTO
+        contentSearchSpec:
+          summarySpec:
+            summaryResultCount: 5
+            ignoreAdversarialQuery: true
+            includeCitations: true
+          snippetSpec:
+            returnSnippet: true
+          extractiveContentSpec:
+            maxExtractiveAnswerCount: 1
+    SessionsRequest:
+      type: object
+      nullable: true
+      description: Refer to the [Sessions](https://cloud.google.com/generative-ai-app-builder/docs/reference/rest/v1alpha/projects.locations.dataStores.sessions#Sessions)
+        api reference for supported attributes
+      example:
+        query:
+          name: session name
+          userPseudoId: A unique identifier for tracking users
+    AnswerRequest:
+      type: object
+      nullable: true
+      description: Refer to the [Answer](https://cloud.google.com/generative-ai-app-builder/docs/reference/rest/v1/projects.locations.dataStores.servingConfigs/answer)
+        api reference for supported attributes
+      example:
+        query: Some example query
+        session: sessionId
+        relatedQuestionsSpec:
+          enable: true
+        answerGenerationSpec:
+          ignoreAdversarialQuery: true
+        searchSpec:
+          dataStoreSpecs:
+            dataStore: datastore full name
+        asynchronousMode: true
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json: {}
