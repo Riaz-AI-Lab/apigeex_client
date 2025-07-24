@@ -33,7 +33,7 @@ PROD_APIGEE_X_SECRET=<PROD_CLIENT_SECRET>
 - In your Python environment, run
 
 ```
-pip install git+ssh://git@github.com/riaz-ai-lab/apigeex_client.git
+pip install git+https://github.com/Riaz-AI-Lab/apigeex_client.git
 ```
 
 
